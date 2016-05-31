@@ -19,6 +19,13 @@ try...except...finally...的错误处理机制，Python也不例外。
 但是，应该在文档中写清楚可能会抛出哪些错误，以及错误产生的原因
 logging.exception(e)
 5. 抛出错误
+在bar()函数中，我们明明已经捕获了错误，但是，打印一个Error!后，
+又把错误通过raise语句抛出去了，这不有病么？
+
+其实这种错误处理方式不但没病，而且相当常见。
+捕获错误目的只是记录一下，便于后续追踪。
+但是，由于当前函数不知道应该怎么处理该错误
+所以，最恰当的方式是继续往上抛，让顶层调用者去处理。
 '''
 def chufa(x,y):
 	try:
@@ -56,7 +63,7 @@ def bar(s):
         return foo(s) * 2
     except StandardError, e:
         print 'Error!'
-        raise
+        raise      #5
 
 def main():
     bar('0')
